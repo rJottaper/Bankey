@@ -7,12 +7,22 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate: AnyObject {
+  func didLogin();
+};
+
+protocol LogoutDelegate: AnyObject {
+  func didLogout();
+};
+
 class LoginViewController: UIViewController {
   let titleLabel = UILabel();
   let subtitleLabel = UILabel();
   let loginView = LoginView();
   let signInButton = UIButton(type: .system);
   let errorMessageLabel = UILabel();
+  
+  weak var delegate: LoginViewControllerDelegate?
   
   var username: String? {
     return loginView.usernameTextField.text;
@@ -28,6 +38,11 @@ class LoginViewController: UIViewController {
     style();
     layout();
   };
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated);
+    signInButton.configuration?.showsActivityIndicator = false;
+  }
 };
 
 extension LoginViewController {
@@ -48,13 +63,13 @@ extension LoginViewController {
     subtitleLabel.adjustsFontForContentSizeCategory = true;
     subtitleLabel.font = UIFont.preferredFont(forTextStyle: .title3);
     subtitleLabel.numberOfLines = 0;
-    subtitleLabel.text = "Your premium source for all things banking! Enjoy.";
+    subtitleLabel.text = "Your premium source for all things banking! Enjoy 😀";
     
     signInButton.translatesAutoresizingMaskIntoConstraints = false;
     signInButton.configuration = .filled();
     signInButton.configuration?.imagePadding = 8;
-    signInButton.setTitle("Sign In", for: []);
-    signInButton.addTarget(self, action: #selector(signInTapped), for: .primaryActionTriggered);
+    signInButton.setTitle("Sign In", for: .normal);
+    signInButton.addTarget(self, action: #selector(signInTapped), for: .touchUpInside);
     
     errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false;
     errorMessageLabel.textAlignment = .center;
@@ -122,8 +137,9 @@ extension LoginViewController {
       return;
     };
     
-    if username == "Jottaper" && password == "00000000" {
+    if username == "Jottaper" && password == "0000" {
       signInButton.configuration?.showsActivityIndicator = true;
+      delegate?.didLogin();
     } else {
       configureView(withMessage: "Incorrect username / password");
     };
