@@ -26,12 +26,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     loginViewController.delegate = self;
     onboardingContainerViewController.delegate = self;
     
-    displayLogin()
+    displayLogin();
+    registerForNotifications();
     return true;
   };
   
   private func displayLogin() {
     setRootViewController(loginViewController);
+  };
+  
+  private func registerForNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: .logout, object: nil);
   };
   
   private func displayNextScreen() {
@@ -61,7 +66,7 @@ extension AppDelegate: LoginViewControllerDelegate, OnboardingContainerViewContr
     setRootViewController(mainViewController);
   };
   
-  func didLogout() {
+  @objc func didLogout() {
     setRootViewController(loginViewController);
   };
 };

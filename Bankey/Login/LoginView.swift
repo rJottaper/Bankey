@@ -43,6 +43,7 @@ extension LoginView {
     passwordTextField.translatesAutoresizingMaskIntoConstraints = false;
     passwordTextField.placeholder = "Password";
     passwordTextField.isSecureTextEntry = true;
+    passwordTextField.enablePasswordToggle();
     passwordTextField.delegate = self;
     
     dividerView.translatesAutoresizingMaskIntoConstraints = false;
