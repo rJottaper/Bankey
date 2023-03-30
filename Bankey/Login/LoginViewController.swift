@@ -32,6 +32,13 @@ class LoginViewController: UIViewController {
     return loginView.passwordTextField.text;
   };
   
+  // Animation
+  var leadingEdgeOnScreen: CGFloat = 16;
+  var leadingEdgeOffScreen: CGFloat = -1000;
+  
+  var titleLeadingAnchor: NSLayoutConstraint?
+  var subtitleLeadingAnchor: NSLayoutConstraint?
+  
   override func viewDidLoad() {
     super.viewDidLoad();
     
@@ -43,6 +50,13 @@ class LoginViewController: UIViewController {
     super.viewDidDisappear(animated);
     signInButton.configuration?.showsActivityIndicator = false;
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated);
+    
+    animate();
+    animateTextAlpha();
+  };
 };
 
 extension LoginViewController {
@@ -57,6 +71,7 @@ extension LoginViewController {
     titleLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle);
     titleLabel.adjustsFontForContentSizeCategory = true;
     titleLabel.text = "Bankey";
+    titleLabel.alpha = 0;
     
     subtitleLabel.translatesAutoresizingMaskIntoConstraints = false;
     subtitleLabel.textAlignment = .center;
@@ -88,16 +103,20 @@ extension LoginViewController {
     // Title
     NSLayoutConstraint.activate([
       subtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 3),
-      titleLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
       titleLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor)
     ]);
+    
+    titleLeadingAnchor = titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingEdgeOffScreen);
+    titleLeadingAnchor?.isActive = true;
     
     // Subtitle
     NSLayoutConstraint.activate([
       loginView.topAnchor.constraint(equalToSystemSpacingBelow: subtitleLabel.bottomAnchor, multiplier: 3),
-      subtitleLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
       subtitleLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor)
     ]);
+    
+    subtitleLeadingAnchor = subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingEdgeOffScreen);
+    subtitleLeadingAnchor?.isActive = true;
     
     // LoginView
     NSLayoutConstraint.activate([
@@ -148,6 +167,38 @@ extension LoginViewController {
   private func configureView(withMessage message: String) {
     errorMessageLabel.text = message;
     errorMessageLabel.isHidden = false;
+    shakeButton();
+  };
+};
+
+// MARK: - Animations
+extension LoginViewController {
+  private func animate() {
+    let animator1 = UIViewPropertyAnimator(duration: 0.8, curve: .easeInOut) {
+      self.titleLeadingAnchor?.constant = self.leadingEdgeOnScreen;
+      self.subtitleLeadingAnchor?.constant = self.leadingEdgeOnScreen;
+      self.view.layoutIfNeeded();
+    };
+    animator1.startAnimation();
+  };
+  
+  private func animateTextAlpha() {
+    let animator1 = UIViewPropertyAnimator(duration: 1, curve: .easeInOut) {
+      self.titleLabel.alpha = 1;
+      self.view.layoutIfNeeded();
+    };
+    animator1.startAnimation(afterDelay: 0.4);
+  };
+  
+  private func shakeButton() {
+    let animation = CAKeyframeAnimation();
+    animation.keyPath = "position.x";
+    animation.values = [0, 10, -10, 10, 0];
+    animation.keyTimes = [0, 0.16, 0.5, 0.83, 1];
+    animation.duration = 0.4;
+
+    animation.isAdditive = true;
+    signInButton.layer.add(animation, forKey: "shake");
   };
 };
 
