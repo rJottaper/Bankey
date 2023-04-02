@@ -32,6 +32,8 @@
 		718045FE29D521600019C17A /* AccountSummaryViewControllerNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718045FD29D521600019C17A /* AccountSummaryViewControllerNetworking.swift */; };
 		7180460129D52E500019C17A /* ProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7180460029D52E500019C17A /* ProfileTests.swift */; };
 		7180460329D52ED00019C17A /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7180460229D52ED00019C17A /* AccountTests.swift */; };
+		7180460529D936950019C17A /* SkeletonLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7180460429D936950019C17A /* SkeletonLoadable.swift */; };
+		7180460729D938B60019C17A /* SkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7180460629D938B60019C17A /* SkeletonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		718045FD29D521600019C17A /* AccountSummaryViewControllerNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewControllerNetworking.swift; sourceTree = "<group>"; };
 		7180460029D52E500019C17A /* ProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTests.swift; sourceTree = "<group>"; };
 		7180460229D52ED00019C17A /* AccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
+		7180460429D936950019C17A /* SkeletonLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadable.swift; sourceTree = "<group>"; };
+		7180460629D938B60019C17A /* SkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				718045DF29D11E690019C17A /* AccountSummaryCell.swift */,
+				7180460429D936950019C17A /* SkeletonLoadable.swift */,
+				7180460629D938B60019C17A /* SkeletonCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -326,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				718045C729C562A00019C17A /* LoginView.swift in Sources */,
+				7180460729D938B60019C17A /* SkeletonCell.swift in Sources */,
 				718045D129CEA44A0019C17A /* LocalState.swift in Sources */,
 				718045CE29CE9DB80019C17A /* DummyVC.swift in Sources */,
 				718045FE29D521600019C17A /* AccountSummaryViewControllerNetworking.swift in Sources */,
@@ -343,6 +350,7 @@
 				718045D529D00E540019C17A /* MainViewController.swift in Sources */,
 				718045D829D0E1DA0019C17A /* AccountSummaryViewController.swift in Sources */,
 				718045B029C55BBB0019C17A /* AppDelegate.swift in Sources */,
+				7180460529D936950019C17A /* SkeletonLoadable.swift in Sources */,
 				718045CA29C6C91E0019C17A /* OnboardingContainerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
