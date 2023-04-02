@@ -91,6 +91,28 @@ extension AccountSummaryViewController {
       
     configureTableCells(with: accounts);
   };
+  
+  private func displayError(_ error: NetworkError) {
+    let title: String;
+    let message: String;
+    switch error {
+    case .serverError:
+      title = "Server Error";
+      message = "We could not process your request. Please try again.";
+    case .decodingError:
+      title = "Network Error";
+      message = "Ensure you are connected to the internet. Please try again.";
+    }
+    self.showErrorAlert(title: title, message: message);
+  }
+  
+  private func showErrorAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert);
+    
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil));
+    
+    present(alert, animated: true, completion: nil);
+  };
 };
 
 extension AccountSummaryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -148,7 +170,7 @@ extension AccountSummaryViewController {
       case .success(let profile):
         self.profile = profile;
       case .failure(let error):
-        print(error.localizedDescription);
+        self.displayError(error);
       };
       group.leave();
     };
@@ -159,7 +181,7 @@ extension AccountSummaryViewController {
         case .success(let accounts):
           self.accounts = accounts;
         case .failure(let error):
-          print(error.localizedDescription);
+          self.displayError(error);
       };
       group.leave();
     };
